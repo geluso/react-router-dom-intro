@@ -155,32 +155,106 @@ is actually much better about this these days.) URLs should represent the
 main content of the page you're looking at!
 
 # Installing React Router
-Let's see how to actually install `react-router` and use it in a React app.
+See a full working repo here: <https://github.com/geluso/react-router-dom-intro>
+
+Let's see how to actually install `react-router-dom` and use it in a React app.
 Let's build a simple Single Page App with a few different pages of content
 for an imaginary dentist website.
 
 1. Create a new React app.
-2. Install React Router.
+2. Install React Router DOM.
 3. Import dependencies into your app.
 
 ```
 create-react-app dentist-website
 cd dentist-website
-npm install --save react-router
+npm install --save react-router-dom
 npm start
 ```
 
 **app.js**
 ```
-const Router = require('react-router').Router
-const Route = require('react-router').Route
-const browserHistory = require('react-router').browserHistory;
-```  
+import React, { Component } from 'react';
+import './App.css';
+
+import Home from './home';
+import Procedures from './procedures';
+import Contact from './contact';
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
+```
 
 # Creating Routes
+React Router uses three of it's own components to define how URLs are mapped
+to components, and to create links to those URLs. Let's look at each of the
+three in summary:
+
+* **<Router>** - this component is a container component that all the other
+  React Router components must be wrapped inside of.
+* **<Route>** - this component creates a definition routing one URL to a
+  component. This component has two attributes:
+  * **path** - defines the URL path that leads to the component.
+  * **component** - a reference to the component to show when someone navigates
+    to the URL.
+* **<Link>** - This component acts like a regular `<a>` tag but integrates
+  users clicking the links with modern HTML5 browser history mechanics.
+  * **to** - this attribute of the `<Link>` component defines what path to
+    navigate to.
+    
+Here's what the components all look like together. The `<Router>` component is
+wrapped around everything. There's a `<nav>` section that contains several
+`<Link>` components to the different pages. After the `<nav>` section the
+`<Route>` components define how the URL paths are actually associated with each
+component.
+
+**app.js**
+```
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/procedures">Procedures</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
+            </ul>
+          </nav>
+          <Route exact path="/" component={Home} />
+          <Route path="/procedures" component={Procedures} />
+          <Route path="/contact" component={Contact} />
+        </div>
+      </Router>
+    );
+  }
+}
+
+export default App;
+```  
 
 # Recap
+Here's a summary of what we've learned today:
 
+### Single Page Applications and Browser History Mechanics
+* Single Page Applications are websites that serve only one web page, then
+  change the content of that page dynamically, without refreshing.
+* Old browser history mechanics support **back** and **forward** operations that
+  traditionally keep track of history as users move between different pages.
+* Since modern Single Page Applications keep the user on one page without
+  refreshing old browser history **back** and **forward** mechanics don't work
+  well with modern applications.
+
+### React Router
+* Single Page Applications have specific URLs that are routed to display
+  different content.
+* React Router is a third-party library that we can install and use with React.
+* React Router makes it easy to define how URLs are routed to different
+  components.
 
 ## Licensing
 All content is licensed under a CC­BY­NC­SA 4.0 license.
