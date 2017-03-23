@@ -155,7 +155,9 @@ is actually much better about this these days.) URLs should represent the
 main content of the page you're looking at!
 
 # Installing React Router
-See a full working repo here: <https://github.com/geluso/react-router-dom-intro>
+See a full working app inside this repo under the `dentist-website` directory
+here:
+<https://github.com/geluso/react-router-dom-intro/tree/master/dentist-website>
 
 Let's see how to actually install `react-router-dom` and use it in a React app.
 Let's build a simple Single Page App with a few different pages of content
