@@ -2,6 +2,13 @@
 This website is a simple example of how to route URLs to different components
 using `react-router-dom`. 
 
+## Author Note
+This repo uses `react-router-dom` specifically instead of `react-router`.
+Consider this discussion thread describing the difference between the two:
+
+<https://github.com/ReactTraining/react-router/issues/4648>
+
+## Summary
 Here's how you can hook up a nav bar to each component, and route URLs to
 each component in your main `App.js` file:
 
