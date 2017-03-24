@@ -1,4 +1,11 @@
 # Browser History Mechanics
+We're going to look at old, traditional browser history mechanics (like **back**
+and **forward**) and see how they're built for an old internet where people
+browsed between lots of different pages. We'll talk about the rise of modern
+Single Page Applications that allow people to do lots of things without ever
+leaving a webpage. We'll see how the rise of Single Page Applications broke
+old, traditional browser history mechanics and led to the introduction of new
+ways for web sites to control what **back** and **forward** really mean.
 
 ## Objectives
 * Understand old browser history mechanics
@@ -12,34 +19,42 @@ Browsers have built in history mechanics. You can go **back** and **forward**
 between pages you've been been to and you can **reload** the page you're on.
 
 ## Exercise
-Open your browser and read about "Cafe Allegro Seattle" using Google:
+Open a new tab in your browser and navigate to the Wikipedia article for
+(Cafe Allegro)[https://en.wikipedia.org/wiki/Cafe_Allegro] in Seattle.
 
-* Go to google.com
-* Search for "cafe allegro seattle"
-* Click on the first Yelp result to check out reviews
-* Click on "See All Photos." This should take you to a new page showing a grid
-  of all the photos at once.
-* Hold down your **back** button again. You should see the main Yelp page, and
-  the google search results.
+* Hover over the "History" link in the Contents section
+* Look in the lower left of your browser to see the URL the link leads to
+* Notice the URL looks like `wikipedia.org/wiki/Cafe_Allegro#history`,
+  specifically note the hashtag `#history`
+* Click the history link and notice how it scrolls you down in the same page.
+* Hover over the link to "Seattle" near the top of the article and look at
+  the URL.
+* Notice that the URL looked like `wikipedia.org/wiki/Seattle` and does not
+  include `Cafe_Allegro`, and there's no hash tag. The URL is a URL to a
+  different page.
+* Click the link to "Seattle" and notice how your browser goes blank, loads
+  another page and shows you the next article for UW.
+* Click on several more links and keep an eye out to notice when the browser
+  goes blank and totally loads a new page.
+* Hold down your mouse on the **back** button. You'll see a drop down menu
+  showing every page you've been on.
+  
+Holding down the back button to look at your browser history should show
+something like this:
 
-* Go **back** to the search results page
-* Click on the official Cafe Allegro website
-* Hold down the **back** button and see what's in the history now.
+![Cafe Allegro to General Assembly](allegro_to_GA.png)
 
-Browser history mechanics are built for going between different pages.
-
-These controls make total sense as you traditionally browse web pages. It makes
-sense to go **back** and **forward** between pages for search results, Yelp, and
-some cafe's official website.
-
-Browsers have the back and forward buttons for users. These actions are also
-available to us in JavaScript. We can write JavaScript programs that invoke
-`window.history.back()` and `window.history.forward()`.
+Browser history mechanics are built for going **back** and **forward** between
+different pages. Browsers have the back and forward buttons for users. These
+actions are also available to us in JavaScript. We can write JavaScript programs
+that invoke `window.history.back()` and `window.history.forward()`.
 
 Pages can be all on the same site, or on many different sites. Browsing pages on
-different sites is like using a search engine as above. Browsing pages on one
-site is like viewing different articles on Wikipedia, or viewing different movie
-pages on IMDB.
+one site is like viewing different articles on Wikipedia, or viewing different
+movie pages on IMDB. Browsing pages on different sites is like using a search
+engine to look up a restaurant, looking at Yelp's website, going back to the
+search engine website, and looking at a restaurant's official website. The
+browser is still visiting different *pages* they're just on different *sites*.
 
 It's important to specifically note what a "page" is. A page is a whole HTML
 file that your browser downloads and displays. You know you're navigating
@@ -50,7 +65,64 @@ We're going into detail about what a page is in order to draw contrast to how
 modern web applications don't use multiple pages like they used to. Modern web
 applications are now often what we call **Single Page Applications**.
 
-## Modern Single Page Applications
+Before we get into Single Page Applications, let's talk about URL routing.
+
+# What is URL Routing?
+**Routing** defines what content is displayed when someone visits a certain a
+URL. If I go to `http://github.com/` I would expect to see GitHub's homepage.
+If I got to `http://github.com/login` I would expect to see a login page. Each
+of these URLs is a **route**. A route pairs a URL with the content that should
+be displayed for that URL. You should be able to visit a webpage, copy the URL
+to a friend, and they should end up viewing the same page.
+
+Let's look at an example of how content is routed by URLs by looking at the
+General Assembly homepage.
+
+Go to <https://generalassemb.ly/>. Interact with the menu in the top bar on
+the right. You should see options for things like "On Campus," "Locations," and
+"About." Click on the different links to pages and notice the URLs that you end
+up at. Hover over the links to see their URL to save yourself from actually
+navigating off the page.
+
+This table shows the **path** for each URL. The path of a URL is everything
+after the domain name. In this case the path is everything that appears
+after "https://generalassemb.ly" in the location bar of the browser. The `/`
+path is a special path called the root. It's the homepage.
+
+Compare the paths in the URLs and get a sense for how URLs are routed to
+content. Websites URLs are general split into succinct, descriptive,
+hierarchical categories. Notice how going to `/locations` takes you to a page
+showing all campus locations, then each specific location is in a hierarchy
+under that, like `/locations/london` and `/locations/singapore`.
+
+| **URL Route**                       | **Content**                                              |
+|-------------------------------------|----------------------------------------------------------|
+| /                                               | Homepage                                     |
+| /about                                          | General Information                          |
+| /education                                      | Shows all local upcoming courses             |
+| /education/web-development-immersive            | WDI course details                           |
+| /education/user-experience-design-immersive     | UX course details                            |
+| /locations                                      | Shows all global GA locations                |
+| /locations/london                               | Shows London-specific location information   |
+| /locations/singapore                            | Shows London-specific location information   |
+
+You can see that URLs *route* users to content. When someone types in a URL
+they are ultimately shown content associated with that URL. It's also important
+that someone should be able to copy a URL, send it to someone else, and everyone
+should end up seeing the same thing.
+
+Have you ever tried to send someone a link to what you're looking at on Google
+Maps and then when they click on your link they end up looking at something
+completely different? That's a great example of bad URL routing. (Google Maps
+is actually much better about this these days.) URLs should represent the
+main content of the page you're looking at!
+
+Old web sites that spread their content across multiple pages use URLs to route
+users to different pages. Modern Single Page Applications actually only have
+one page, but they use URLs to route users to see different content on that one
+page.
+
+# Modern Single Page Applications
 Modern web applications let you do lots of things on just one page. They try to
 minimize how often you have to go to a new page where you see your browser go
 blank and load everything over again. Instead, modern web apps serve just one
@@ -60,14 +132,14 @@ having to reload the entire page or send users to another page.
 Websites that serve up only one page and change the content of the page
 dynamically without reload the page are called **Single Page Applications**.
 
-Imagine using Gmail:
+Open your browser and navigate to Gmail:
 
-* You load Gmail and see your inbox
-* You start instant messaging a friend in a sidebar
-* You start to compose a new email to your manager to request time off
-* You search for an email with flight information
-* You browse through more email to make sure you've talked your manager about
-  getting time off before
+* When you load Gmail you see your inbox
+* You can start instant messaging a friend in a sidebar
+* You can start to compose a new email to your manager to request time off
+* You can search for an email with flight information
+* You can browse through more email to make sure you've talked your manager
+  about getting time off before
 
 This all happens on one page! The page never refreshes. The chat bar with your
 friend never disappears as you compose an email and search through your inbox.
@@ -84,6 +156,9 @@ Consider the benefits of a single page application:
   inbox, an email, or email search results.
 
 ## Single Page Apps Break Old History Mechanics!
+Now here's the catch. Here's why we went into such detail about browser history
+mechanics and defining what exactly Single Page Applications are.
+
 Single Page Applications break the initial design of Browser History Mechanics.
 The **back** and **forward** actions were built specifically to go back and
 forth between different pages. Since single page apps only change the content
@@ -134,58 +209,6 @@ own Single Page Applications extremely easily. So even though we won't use the
 new history mechanics firsthand ourselves it's still important to know that our
 framework is taking care of that for us under the hood.
 
-# What is URL Routing?
-Before we take a look at **React Router** let's see what **routing** means.
-
-**Routing** defines what content is displayed when someone visits a certain a
-URL. If I go to `http://github.com/` I would expect to see GitHub's homepage.
-If I got to `http://github.com/login` I would expect to see a login page. Each
-of these URLs is a **route**. A route pairs a URL with the content that should
-be displayed for that URL. You should be able to visit a webpage, copy the URL
-to a friend, and they should end up viewing the same page.
-
-Let's take at an example of how content is routed by URLs by looking at the
-General Assembly homepage.
-
-Go to <https://generalassemb.ly/>. Interact with the menu in the top bar on
-the right. You should see options for things like "On Campus," "Locations," and
-"About." Click on the different links to pages and notice the URLs that you end
-up at. Hover over the links to see their URL to save yourself from actually
-navigating off the page.
-
-This table shows the **path** for each URL. The path of a URL is everything
-after the domain name. In this case the path is everything that appears
-after "https://generalassemb.ly" in the location bar of the browser. The `/`
-path is a special path called the root. It's the homepage.
-
-Compare the paths in the URLs and get a sense for how URLs are routed to
-content. Websites URLs are general split into succinct, descriptive,
-hierarchical categories. Notice how going to `/locations` takes you to a page
-showing all campus locations, then each specific location is in a hierarchy
-under that, like `/locations/london` and `/locations/singapore`.
-
-| **URL Route**                       | **Content**                                              |
-|-------------------------------------|----------------------------------------------------------|
-| /                                               | Homepage                                     |
-| /about                                          | General Information                          |
-| /education                                      | Shows all local upcoming courses             |
-| /education/web-development-immersive            | WDI course details                           |
-| /education/user-experience-design-immersive     | UX course details                            |
-| /locations                                      | Shows all global GA locations                |
-| /locations/london                               | Shows London-specific location information   |
-| /locations/singapore                            | Shows London-specific location information   |
-
-You can see that URLs *route* users to content. When someone types in a URL
-they are ultimately shown content associated with that URL. It's also important
-that someone should be able to copy a URL, send it to someone else, and everyone
-should end up seeing the same thing.
-
-Have you ever tried to send someone a link to what you're looking at on Google
-Maps and then when they click on your link they end up looking at something
-completely different? That's a great example of bad URL routing. (Google Maps
-is actually much better about this these days.) URLs should represent the
-main content of the page you're looking at!
-
 # Recap
 Here's a summary of what we've learned today:
 
@@ -197,6 +220,13 @@ Here's a summary of what we've learned today:
 * Since modern Single Page Applications keep the user on one page without
   refreshing old browser history **back** and **forward** mechanics don't work
   well with modern applications.
+  
+# What's Next: React Router
+In the next section we'll see how we can use **React Router** in our **React**
+applications to easily create our own Single Page Applications. We'll see how
+React Router allows us to route URLs to components with content, and we'll see
+how React Router automatically manages history using modern browser history
+mechanics.
 
 ## Licensing
 All content is licensed under a CC­BY­NC­SA 4.0 license.
