@@ -19,20 +19,34 @@ Imagine checking out a cafe using a search engine:
 * Click on the official Cafe Allegro website
 * **Reload** the page to see if they've announced their new coffee yet.
 
-These controls make total sense as you traditionally browse the web. It makes
-sense to go **back** and **forward** between search results, Yelp, and
+These controls make total sense as you traditionally browse web pages. It makes
+sense to go **back** and **forward** between pages for search results, Yelp, and
 some cafe's official website. Browser history mechanics are built for going
-between lots of different pages.
+between different pages.
 
 Pages can be all on the same site, or on many different sites. Browsing pages on
 different sites is like using a search engine as above. Browsing pages on one
 site is like viewing different articles on Wikipedia, or viewing different movie
 pages on IMDB.
 
+It's important to specifically note what a "page" is. A page is a whole HTML
+file that your browser downloads and displays. You know you're navigating
+between two different pages when you see your browser screen go blank, then
+slowly load in a totally new page.
+
+We're going into detail about what a page is in order to draw contrast to how
+modern web applications don't use multiple pages like they used to. Modern web
+applications are now often what we call **Single Page Applications**.
+
 ## Modern Single Page Applications
-Modern web applications let you do lots of things on just one page. Websites
-that serve up only one page and change the content of the page dynamically
-without reload the page are called **Single Page Applications**.
+Modern web applications let you do lots of things on just one page. They try to
+minimize how often you have to go to a new page where you see your browser go
+blank and load everything over again. Instead, modern web apps serve just one
+page and they change parts of the *contents* of the page dynamically, without
+having to reload the entire page or send users to another page.
+
+Websites that serve up only one page and change the content of the page
+dynamically without reload the page are called **Single Page Applications**.
 
 Imagine using Gmail:
 
@@ -46,18 +60,26 @@ Imagine using Gmail:
 This all happens on one page! The page never refreshes. The chat bar with your
 friend never disappears as you compose an email and search through your inbox.
 
-Modern web applications like Gmail are called **Single Page Applications**. A
-Single Page Application serves up just one webpage and that web page is
-configured to display all sorts of different content.
+Gmail fits the definition of a **Single Page Applications**. Gmail loads one
+page just once and that page replaces content dynamically to show you many
+different things. That single page changes it's content dynamically without
+reloading or sending you to another page. It's great!
 
-Gmail has one web page that shows you your inbox, shows you individual emails,
-and lets you search through all your email.
- 
+Consider the benefits of a single page application:
+* It's fast. Users don't have to wait for a page to reload over and over.
+* It's persistent. You can have a chat window open in one corner and keep
+  talking to a friend as the rest of Gmail switches between showing you your
+  inbox, an email, or email search results.
+
+## Single Page Apps Break Old History Mechanics!
 Single Page Applications break the initial design of Browser History Mechanics.
 The **back** and **forward** actions were built specifically to go back and
-forth between different pages. These modern web pages keep you all on
-just one page view many different views. When users press the **back** button
-they go entirely off the page, completely out of the Single Page Application.
+forth between different pages. Since single page apps only change the content
+of themselves without actually sending users to different web pages the notion
+of **back** and **forward** is lost.
+
+When users press the **back** button in a Single Page Application they go back
+off the one page, completely out of the Single Page Application.
 
 Imagine being on Facebook, going to Gmail, going through several views of
 different email inboxes, search results and then pressing the back button.
@@ -74,7 +96,12 @@ Since Gmail is a Single Page Application pressing the back button will take
 the user all the way back to Facebook! Really, the user just wanted to go back
 to their email search results.
  
-## Modern Browser History Mechanics
+## Introducing Modern Browser History Mechanics
+Web Developers, users, and browser vendors all love Single Page Applications.
+They're a great experience that the Internet community should embrace. At one
+point people got together in committees and devised a way to upgrade the old
+browser history mechanics to accommodate modern Single Page Applications.
+
 The modern HTML5 specification (published October 2014) introduced new browser
 history mechanics to make Single Page Applications easier to browse **back** and
 **forward** even through they actually stay on the same page.
@@ -88,43 +115,36 @@ presses the **back** button the browser gives the saved information back to
 Gmail and Gmail brings back the content the user was last looking at.
 
 It's good that HTML5 introduced new browser history mechanics to make it easier
-for us developers to build Single Page Applications. We're not going to be
-using these new features directly ourselves. Instead, we'll use a tool
-called **React Router** that bundles these modern features together for us
-and allows us to create our own Single Page Applications extremely easily.
+for us developers to build Single Page Applications. We're actually not going to
+be using these new features directly ourselves. Instead, we'll use a tool called
+**React Router** that bundles many concepts together and allows us to create our
+own Single Page Applications extremely easily. So even though we won't use the
+new history mechanics firsthand ourselves it's still important to know that our
+framework is taking care of that for us under the hood.
 
-**React Router** makes it easy for us to swap out different content on the same
-page  and it saves us from  having to manually manipulate browser history
-mechanics.
+# What is URL Routing?
+Before we take a look at **React Router** let's see what **routing** means.
 
-# React Router Overview
-React Router is designed to handle several common patterns that come with
-creating Single Page Applications. React Router is actually a **third-party**
-library. Third Party just means it's not built by React and it's not built by
-ourselves. It's been written by some other "third-party" group of developers.
-Even though React Router is third-party software it's extremely useful,
-trustworthy, and popular.
+**Routing** defines what content is displayed when someone visits a certain a
+URL. If I go to `http://github.com/` I would expect to see GitHub's homepage.
+If I got to `http://github.com/login` I would expect to see a login page. Each
+of these URLs is a **route**. A route pairs a URL with the content that should
+be displayed for that URL. You should be able to visit a webpage, copy the URL
+to a friend, and they should end up viewing the same page.
 
-Here's what React Router provides:
-
-* **Routing:** easily define what content is associated with what URLs.
-* **History:** automatically manage browser history when navigating between
-  content.
-
-## Routing Example
-**Routing** is the act of displaying certain content when users navigate to
-certain URLs. Let's take at an example of how content is routed by URLs by
-looking at the General Assembly homepage.
+Let's take at an example of how content is routed by URLs by looking at the
+General Assembly homepage.
 
 Go to <https://generalassemb.ly/>. Interact with the menu in the top bar on
 the right. You should see options for things like "On Campus," "Locations," and
 "About." Click on the different links to pages and notice the URLs that you end
-up at.
+up at. Hover over the links to see their URL to save yourself from actually
+navigating off the page.
 
 This table shows the **path** for each URL. The path of a URL is everything
 after the domain name. In this case the path is everything that appears
 after "https://generalassemb.ly" in the location bar of the browser. The `/`
-path is a special path called the root.
+path is a special path called the root. It's the homepage.
 
 Compare the paths in the URLs and get a sense for how URLs are routed to
 content. Websites URLs are general split into succinct, descriptive,
@@ -154,18 +174,40 @@ completely different? That's a great example of bad URL routing. (Google Maps
 is actually much better about this these days.) URLs should represent the
 main content of the page you're looking at!
 
+# React Router Overview
+Now let's see see how we can use **React Router** to route URLs to content. In
+our React apps, our content will be associated with a component. Once we define
+what URLs route to which components **React Router** will handle replacing the
+content and keeping track of browser history all automatically.
+
+Here's what React Router provides:
+
+* **Routing:** easily define what content is associated with what URLs.
+* **History:** automatically manage browser history when navigating between
+  content.
+
+React Router is actually a **third-party** library. Third Party just means it's
+not built by React and it's not built by ourselves. It's been written by some
+other "third-party" group of developers. Even though React Router is third-party
+software it's extremely useful, trustworthy, and popular.
+
 # Installing React Router
-See a full working app inside this repo under the `dentist-website` directory
-here:
-<https://github.com/geluso/react-router-dom-intro/tree/master/dentist-website>
+Full Repo: <https://github.com/geluso/react-router-simple-dentist-site>
+Live Site: <https://react-router-dentist.herokuapp.com/>
 
 Let's see how to actually install `react-router-dom` and use it in a React app.
-Let's build a simple Single Page App with a few different pages of content
+We'll build a simple Single Page App with a few different pages of content
 for an imaginary dentist website.
 
-1. Create a new React app.
-2. Install React Router DOM.
-3. Import dependencies into your app.
+1. Create a new React app with `create-react-app`
+2. Install `react-router-dom`
+3. Import `Home`, `Procedures`, and `Contact` components
+4. Import `BrowserRouter as Router`, `Route`, and `Link`
+5. Wrap `<Route>` components with `<Router>` component
+6. Use `<Route>` components to map URLs to `Home`, `Procedure`, and `Contact`
+  Components
+
+Create the new React app and install `react-router-dom`:
 
 ```
 create-react-app dentist-website
@@ -173,6 +215,9 @@ cd dentist-website
 npm install --save react-router-dom
 npm start
 ```
+
+Import our `Home`, `Procedures`, and `Contact` components and import the
+React Router components too:
 
 **app.js**
 ```
@@ -191,27 +236,29 @@ import {
 ```
 
 # Creating Routes
-React Router uses three of it's own components to define how URLs are mapped
-to components, and to create links to those URLs. Let's look at each of the
+React Router uses three of it's own components to define how URLs are routed
+to components, and to create links to those routes. Let's look at each of the
 three in summary:
 
 * **<Router>** - this component is a container component that all the other
   React Router components must be wrapped inside of.
 * **<Route>** - this component creates a definition routing one URL to a
   component. This component has two attributes:
-  * **path** - defines the URL path that leads to the component.
-  * **component** - a reference to the component to show when someone navigates
-    to the URL.
-* **<Link>** - This component acts like a regular `<a>` tag but integrates
-  users clicking the links with modern HTML5 browser history mechanics.
-  * **to** - this attribute of the `<Link>` component defines what path to
-    navigate to.
+  * **path** - defines the URL path that leads to the component. If someone
+    types in the URL defined here then the site will display the component as
+    the content of the page.
+  * **component** - a reference to the component to show as content when
+    someone navigates to the URL.
+* **<Link>** - This component creates `<a>` tags and automatically integrates
+  modern HTML5 browser history mechanics for the Single Page Application. It
+  has one attribute:
+  * **to** - this attribute defines what path to navigate to.
     
 Here's what the components all look like together. The `<Router>` component is
 wrapped around everything. There's a `<nav>` section that contains several
-`<Link>` components to the different pages. After the `<nav>` section the
-`<Route>` components define how the URL paths are actually associated with each
-component.
+`<Link>` components that link to the different pages. After the `<nav>` section
+the `<Route>` components define how the URL paths are actually associated with
+each component.
 
 **app.js**
 ```
