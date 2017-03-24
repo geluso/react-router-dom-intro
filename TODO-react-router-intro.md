@@ -1,49 +1,18 @@
-* [x] add follow along exercises?
-  * [x] convert yelp cafe browsing to specific exercise
-  * [x] mention window.history.back() / .forward()
-* [ ] talk about pushState / replaceState()
-  * how in depth do we want to do here? I say not too in depth.
-  * devs rarely use this manually.
-  * React does it automatically
-* [ ] discuss manual browser history manipulation repo
-  * I can make a lab that has people manipulate history manually
-  * there doesn't seem to be enough time to do that here
-  * would it be a good investment? Router builds this for free!
-  * I think the biggest takeaway here is having students understand that
-    SPAs break regular history stuff since they are just on one page
-* [x] split sections
-  * [ ] old browser history mechanics
-  * [ ] single page applications
-    * "modern apps let you do lots of things on just one page"
-    * "gmail has one page that shows you inbox/email/search results ..."
-  * [ ] modern browser history mechanics
-    * "now gmail can use these functions manually to save custom browser history"
-  * Modern Mechanics + SPA
-    * "Really, the user just wanted to go back to their email search results."
-    * "We won't use these features directly"
-    * "React Router handles this for us automatically"
-* [ ] React Router Section
-  * "React Router makes it easy for us to swap content on the same page"
-  * "it saves us from manually manipulating browser history mechanics.
-  
-  * [TODO] Installing React Router
-    * [TODO] clarify `npm install --save react-router-dom`
-    * [TODO] clarify what `--save` does
-  * [TODO] Importing React Router
-    * [TODO] clarify the import statement
-      * is it always required? (router/route: yes, Link: no)
-  * [TODO] clarify component imports
-    * these are files defined in the project
-    * these are components, just like we're used to
-    * each component represents one page on our website
-    * React Router allows us to define the pages in components in different
-      files, then we use <Router> and <Route> to define how they fit into
-      our page and React Router bundles it all into a single page app when
-      we put it online.
+* [TODO] Installing React Router
+  * [TODO] clarify `npm install --save react-router-dom`
+  * [TODO] clarify what `--save` does
+* [TODO] Importing React Router
+  * [TODO] clarify the import statement
+    * is it always required? (router/route: yes, Link: no)
+* [TODO] clarify component imports
+  * these are files defined in the project
+  * these are components, just like we're used to
+  * each component represents one page on our website
+  * React Router allows us to define the pages in components in different
+    files, then we use <Router> and <Route> to define how they fit into
+    our page and React Router bundles it all into a single page app when
+    we put it online.
 * [ ] meet Sunday Night Deadline
-
-I think the "Routing Example" section would go best above Single Page
-Applications, to keep similar topics together.
 
 Under the Installing section: you have the import components section (home,
 procedures, contact). You haven't explained what these are - they aren't by
