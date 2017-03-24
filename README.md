@@ -10,19 +10,30 @@
 Browsers have built in history mechanics. You can go **back** and **forward**
 between pages you've been been to and you can **reload** the page you're on.
 
-Imagine checking out a cafe using a search engine:
+## Exercise
+Open your browser and read about "Cafe Allegro Seattle" using Google:
 
 * Go to google.com
 * Search for "cafe allegro seattle"
 * Click on the first Yelp result to check out reviews
+* Click on "See All Photos." This should take you to a new page showing a grid
+  of all the photos at once.
+* Hold down your **back** button again. You should see the main Yelp page, and
+  the google search results.
+
 * Go **back** to the search results page
 * Click on the official Cafe Allegro website
-* **Reload** the page to see if they've announced their new coffee yet.
+* Hold down the **back** button and see what's in the history now.
+
+Browser history mechanics are built for going between different pages.
 
 These controls make total sense as you traditionally browse web pages. It makes
 sense to go **back** and **forward** between pages for search results, Yelp, and
-some cafe's official website. Browser history mechanics are built for going
-between different pages.
+some cafe's official website.
+
+Browsers have the back and forward buttons for users. These actions are also
+available to us in JavaScript. We can write JavaScript programs that invoke
+`window.history.back()` and `window.history.forward()`.
 
 Pages can be all on the same site, or on many different sites. Browsing pages on
 different sites is like using a search engine as above. Browsing pages on one
