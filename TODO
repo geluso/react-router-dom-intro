@@ -1,0 +1,147 @@
+That's okay; I understand (and appreciate the quick turnaround) and will
+patiently wait for USS Geluso to add to the shared repo. I fully expect your
+commit message to start with "Captain's log..." :).
+
+ About the types of router - I forwarded that to the guy who made the project
+ (so they match). Here's his reply - > I wrote the projects using react-router 4
+ and the DOM library. I used the react-router-dom library for this as well. So
+ my suggestion is to stick with that. Have them look over the project 4/5 code
+ to see how I use it. >  Here's the actual import and classes from
+ react-router-dom I use: import { BrowserRouter as Router, Route, Link } from
+ 'react-router-dom'; and the classes: - Router - Link (to) - <Route path="/blog"
+ component={ () => (<Blog title={post.title} author={post.author}
+ body={post.body} comments={post.comments} /> )}/>
+
+So that's your answer to match :). Especially since it's a web dev class, good
+instincts.
+
+Comments on content - I think it's shaping up really well! Well, you're already
+going to go through and reinforce things / delete duplicates, so I'll mostly
+leave that to you :). Here are some specific comments - Is there any way you can
+add follow along exercises? Like, really simple ones - just to break up the
+reading and make it interactive. I know that's hard with router. Can we do a
+browser trace or something? I think at the least (and possibly enough), under
+Browser Mechanics, change the 'imagine' to say something like, "Let's have a
+quick exercise to see what we're used to. Open a new tab in your browser. Watch
+your browser history. If you navigate to google.com, you can see google.com
+appear in your browser history. Then, navigate to Yelp... you can see that
+appear in your history again." Etc. Then for google under SPA, "Again, look at
+your browser history. Nothing appears..." Can you be more clear/specific?
+(Because remember, they've never seen this). For example, what I'm referring to
+is: "It makes sense to go back and forwardbetween search results, Yelp, and some
+cafe's official website. Browser history mechanics are built for going between
+lots of different pages." Can you here add something like, "This is accomplished
+by code in the browser which is "window.history.back();" and
+"window.history.forward();" This will be a great segue to later, you have HTML5
+introduced .pushState and .replaceState functions Which you can expand with an
+example with actual javascript code - for a great one to just take, search for "
+Example of pushState() method" on  this. page. (which is where I'm getting all
+this and is IMO an excellent overview that we can slightly shorten of browser
+history mechanics). You don't have to go into the pushState parameters, since
+the idea is that they understand pushState and not that they're experts. And
+then the same for replaceState with the code example
+
+Can you break/combine the "Modern Single Page Applications" section and the
+"Modern Browser Mechanics" section into three, actually? To have a better flow
+I'm thinking specifically to: keep the Modern SPA section where it is, so same
+starting sentence, ("Modern web applications let you do lots of things on just
+one page. Websites that serve up only one page and change the content of the
+page dynamically without reload the page are called Single Page
+Applications....") up until "Gmail has one web page that shows you your inbox,
+shows you individual emails, and lets you search through all your email.". Then,
+have the Modern Browser Mechanics section up until, "Now applications like Gmail
+can use these functions to manually save custom browser history". Then in the
+same section, the aforementioned code examples and a bit more explanation
+(freely paraphrased from that linked site). Then back to the rest of the
+paragraph, from "When someone goes from their inbox..." to "...user was last
+looking at". Now, a new third section. Called something like, "Modern browser
+history + SPA" or whatever. This will be the next sentence of Modern ("It's good
+that HTML5 introduced new browser history mechanics to make it easier for us
+developers to build Single Page Applications") plus the remaining section from
+SPA (so "Single Page Applications break the initial design of Browser History
+Mechanics...." to "Really, the user just wanted to go back to their email search
+results." (this section might need to be reworded a bit to keep flow). Then in
+the same third section, your next sentences from modern - ("We're not going to
+be using these new features directly ourselves. Instead, we'll use a tool called
+React Router that bundles these modern features together for us and allows us to
+create our own Single Page Applications extremely easily.") And then that will
+be a page break when I move it to gitbook, and then on the next page you can
+move "React Router makes it easy for us to swap out different content on the
+same page and it saves us from having to manually manipulate browser history
+mechanics." somewhere under React Router - that's actually an awesome summary
+sentence to drop under Router in the Recap section. I think the "Routing
+Example" section would go best above Single Page Applications, to keep similar
+topics together. (I know this doesn't match the Trello board which you were
+probably following, but it seems like it flows better that way, unless you
+disagree? Because from there it starts to flow into SPA (which regular routing
+isn't), which flows into Router). Under the Installing section: you have the
+import components section (home, procedures, contact). You haven't explained
+what these are - they aren't by default added when you do create-react-app. Are
+they added by install react-router-DOM? Are they files in the dentist repo, but
+you said to create a new app. If we're building them, include in the codealong
+here a really basic framework of these - they aren't going to do anything unless
+you also do it! So after "app.js", you can be like, "We'll also have base
+components that we can pull in, so let's quickly make components that are just
+the same as the ones we're used to." and then just show the code for those. Can
+you clarify "npm install --save react-router-dom"? I know it's pedantic, but
+hey, it's a class and best to make sure the lowest denominator student is
+following along. Maybe above where you have "Install React Router DOM" you can
+say, "this is done with npm just as react is - so we'll npm install
+react-router-dom in our code below". I also just don't know what the --save
+does, so please also clarify that. What does import { BrowserRouter as Router,
+Route, Link } from 'react-router-dom'
+
+actually import? Is it always required? What are the three things we'll pulling
+out of react-router-dom? Please explain. Recommendation: Expanding #3, maybe
+"Import dependencies into your app. This will be React and a css file as per
+usual, but make sure to import any components you plan on having the user see,
+and then everything we require from Router.... <now have the explanation of the
+things from Router>" A+ full working repo to refer to, btw. :). In your
+breakdown bullets beneath Creating Routes, just add the code as a 'to show'.
+like, leave it all as is :) under the path and component definitions, have
+another sentence of explanation before the link bullet. Something like, The
+syntax for this is  <Route path="<your URL>" component={<the Component to load} /> .
+For example, <Route path="/procedures" component={Procedures} /> tells our app
+"when someone wants to go to the /procedures page, load the Procedures
+component." And then the same - under the to definition, The syntax for this is
+<li><Link to="<your URL>">Your Displayed Text</Link></li>. For example,
+<li><Link to="/procedures">Procedures</Link></li> tells our app "There's a link,
+display "Procedures." When someone clicks this, it will call the right Route
+path call on the page (the previous bullet we just saw!)." Question: Where does
+this render? Is there still a render call in Index.js? Will this go where the
+nav bar is? As in, please explain (I know it's in the example repo, but explain
+also). Maybe make a super simple sketch of a nav bar with a block div under it
+and "different components will render here." Thanks! What's 'exact path' and why
+is that one different? Do you always need an exact path? Maybe add, "now you can
+build this out and try it in the browser - see how it just reloads the
+components? And your browser history doesn't update." I know that was a lot of
+comments, but I really do really like it! Thanks again.
+
+You can take until Sunday night, if you'd like. I'd rather have what you
+consider solid content than rushed content! I'm going to start rearranging the
+repo and this is a good enough start to start thinking about how to add yours
+in, but I won't push it and I'll leave your folder where it is for now. But
+absolutely make sure it's up by Sunday night so first thing Monday morning I can
+start assembling it, please.
+
+Ah a thought on one of those bullets -
+
+My bullet was, " you have the import components section (home, procedures,
+contact). You haven't explained what these are - they aren't by default added
+when you do create-react-app. Are they added by install react-router-DOM? Are
+they files in the dentist repo, but you said to create a new app. If we're
+building them, include in the codealong here a really basic framework of these -
+they aren't going to do anything unless you also do it! So after "app.js", you
+can be like, "We'll also have base components that we can pull in, so let's
+quickly make components that are just the same as the ones we're used to." and
+then just show the code for those." But these are made in your dentist repo. So
+I would say recommend something like this, "We're importing the components home,
+procedures, and contact. These are just regular components that you're used to,
+so create three new files - contact.js, home.js, and procedure.js. Remember,
+they'll have the syntax of import React, { Component } from 'react'; class
+<ClassName> extends Component { render () { return ( <div> Whatever you'd like
+this component to display! </div>" ); } } module.exports = Home;
+
+You can look in the dentist solution repo for the full code of these."
+
+And that should cover it :)
