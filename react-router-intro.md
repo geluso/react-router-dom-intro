@@ -2,15 +2,17 @@
 
 ## Objectives
 * Review how websites use URLs to route content
+* Review what it means for a website to be a Single Page Application
 * Introduce React Routers main features: routing, components, history
 * Use React Router to map URLs to components
 * Use React Router to create links to different pages
 
 # Intro to React Router
-Now let's see see how we can use **React Router** to route URLs to content. In
-our React apps, our content will be associated with a component. Once we define
-what URLs route to which components **React Router** will handle replacing the
-content and keeping track of browser history all automatically.
+**React Router** is a third-party library that makes it easy for us to route
+specific URLs to specific content on our page. In our React app different
+content will be grouped up in it's own regular **React** component. Once we
+define how the URLs are routed to the components **React Router** will
+manage our Single Page App's browser history automatically.
 
 Here's what React Router provides:
 
@@ -23,24 +25,63 @@ not built by React and it's not built by ourselves. It's been written by some
 other "third-party" group of developers. Even though React Router is third-party
 software it's extremely useful, trustworthy, and popular.
 
-# Installing React Router
+# The Plan: Our Example Dentist Website
+We'll make an example Dentist website that has a `Home` page, a page that lists
+available `Procedures` and a page displaying `Contact` information. Each of
+these pages of content will be built into their own regular **React** component,
+then we'll create a unique URL route that leads to each component.
+
+Here's how we'll route our Single Page Application.
+
+| **URL Route**  | **Component**  | **Content Description**                          |
+|----------------|----------------|--------------------------------------------------|
+| /              | `<Home>`       | A homepage with welcome text.                    |
+| /procedures    | `<Procedures>` | A list of all dentist procedures.                |
+| /contact       | `<Contact>`    | A page with an address, phone number, and email. |
+
+Remember, the URL routes are paths off our main website. We could put our
+website at any domain, like `www.ourdentistwebsite.com` or
+`www.premiumdental.com`, and the URL route paths would behave the same. Paths
+only care about what comes after the domain name.
+
+Our routes say that if someone goes to `ourdomain.com/` they will see our
+homepage with welcome text. The content of this page will all be defined in it's
+own component in a file called `home.js`. If someone navigates to the URL
+`ourdomain.com/contact` then they'll see content with the business address,
+a phone number and an email. All of this content will be defined in a component
+called `Contact` in a file called `contact.js`.
+
+You can see all of the final code and a live working copy of the site here:
+
 Full Repo: <https://github.com/geluso/react-router-simple-dentist-site>
 Live Site: <https://react-router-dentist.herokuapp.com/>
 
-Let's see how to actually install `react-router-dom` and use it in a React app.
-We'll build a simple Single Page App with a few different pages of content
-for an imaginary dentist website.
+# Installing React Router
+Let's see how to set up a new React project and install **React Router**. You
+should have the `create-react-app` command line tool installed. This tool makes
+it easy to start making a **React** app.
 
-1. Create a new React app with `create-react-app`
-2. Install `react-router-dom`
-3. Import `Home`, `Procedures`, and `Contact` components
-4. Import `BrowserRouter as Router`, `Route`, and `Link`
-5. Wrap `<Route>` components with `<Router>` component
-6. Use `<Route>` components to map URLs to `Home`, `Procedure`, and `Contact`
-  Components
+Since **React Router** is a third-party library we'll need to use `npm
+install --save react-router-dom` to download **React Router** and save it as
+a dependency in our project.
 
-Create the new React app and install `react-router-dom`:
+* `npm install` is the command used to install libraries to our project.
+* The `--save` flag tells `npm install` to save the thing we're downloading to
+  our `package.json` file as a dependency. Saving the library as a dependency
+  makes it easy for us to copy our project to another machine and just run
+  `npm install` to install all of the dependencies for our project.
+* `react-router-dom` is the official name of **React Router**
 
+So, in summary, we're telling `npm install` to find the library package called
+`react-router-dom`, install the package, and save the name of our package to our
+file that keeps track of all the packages for our project.
+
+If you don't use the `--save` flag then `npm install` will still find the
+package and download it. It just won't save the package to your `package.json`
+file so you can easily install all your saved dependencies later on if you move
+to another machine.
+
+## In Your Terminal
 ```
 create-react-app dentist-website
 cd dentist-website
@@ -48,23 +89,188 @@ npm install --save react-router-dom
 npm start
 ```
 
-Import our `Home`, `Procedures`, and `Contact` components and import the
-React Router components too:
+Your browser should open to <http://localhost:3000/> and you'll see the standard
+"Welcome to React" message with a fancy rotating atomic icon. `create-react-app`
+creates several files for us in a directory called `src`. Open the `App.js`
+file in your editor.
 
-**app.js**
+`App.js` contains our main application. You should see the basic HTML structure
+of the standard React starter page. Make sure the file is the same thing you're
+looking at in the browser by finding the text `Welcome to React` inside an
+`<h2>` element.
+
+Change the text to say `My First React Router App`, save the file and make sure
+you see the changes automatically appear in your browser. The page should
+automatically refresh. If it doesn't automatically refresh then try to manaully
+refresh the page. If you still don't see changes after a manual refresh then
+something could be wrong. Make sure you're editing the right file.
+
+It's a good idea to make simple, verifiable changes like this when you're first
+starting to make changes to a project. It's like a sanity check. Make sure you
+can do simple things first. Don't start with complex things. Many things can go
+wrong when you make complex changes. Prove to yourself you can make small
+changes and you'll save yourself headaches debugging large complex changes.
+
+# Create Custom Homepage
+Let's get rid of the standard "Welcome to React" page and replace it with our
+own Dentist Website Homepage. Continue editing `App.js`. Gut most of the HTML
+contents, and delete the import statement for the `logo.svg` which we won't use.
+
+The `App.js` file contains one component that our whole App will live inside
+of. Remember that React components have a `render(){ ... }` function that
+defines what the component will look like when it is rendered on the webpage.
+The render function alway has to return *at most* one top-level element. It's
+common to wrap everything in your component in a `<div>` to make sure you
+satisfy this constraint.
+
+I added one `<h1>` That says `Dentist Website` and added a paragraph with some
+short welcome text. My `App.js` file now looks like this. Save the file and go
+to your browser to make sure these changes show up.
+
+**App.js**
 ```
 import React, { Component } from 'react';
 import './App.css';
 
-import Home from './home';
-import Procedures from './procedures';
-import Contact from './contact';
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Dentist Website</h1>
+        <p>
+          Welcome to my dentist website.
+        </p>
+      </div>
+    );
+  }
+}
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom'
+export default App;
+```
+
+Good. Now we have a simple homepage set up. Let's move on to getting the rest
+of the content for our site set up.
+
+# Creating Our Homepage Component
+We've been editing `App.js` which defines one component for our entire
+application. So far our app manually shows just the homepage. Let's refactor
+this so the content of the homepage is moved into it's own component called
+`Home`.
+
+1. Create a new file called `Home.js`.
+2. Copy and paste everything inside `App.js` into `Home.js` to use it as a
+  template for how to create a React component.
+3. Delete the import statement for `./App.css`.
+4. Find everywhere the file says `App` and rename it to `Home`. This code used
+  to create a component called `App`. Now we're rewriting it to create a
+  component called `Home`.
+5. Look at the `render() { ... }` function and verify that it's returning
+  content that represents our homepage. It should just be the one top-level
+  `<div>`, the `<h1>` and a `<p>` paragraph element if you used the same
+  content as above. Great. We actually don't need to make any changes here!
+6. Go back to `App.js` and delete the `<h1>` and `<p>` tags where we used to
+  have the Home content written directly inside our `App` component. We don't
+  need that written inside `App` any more because we just moved it all to the
+  new `Home` component.
+7. Add `<Home></Home>` inside the `<div>` in the `App` component. This tells the
+  `App` component to render the `Home` component right there inside the div.
+8. Look at the browser and see if the homepage appears. It wont. You'll see an
+  error. The error should look like below.
+
+![Home not defined](home-not-defined-error.png)
+
+It's not enough to simply create the `Home.js` file and create the `Home`
+component. We must also import the component into the `App.js` file.
+
+Your `App.js` and `Home.js` files should look like this after you've properly
+created and imported the `Home` component.
+
+**App.js**
+```js
+import React, { Component } from 'react';
+import './App.css';
+import Home from './Home';
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Home></Home>
+      </div>
+    );
+  }
+}
+export default App;
+```
+
+**Home.js**
+```js
+import React, { Component } from 'react';
+
+class Home extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Dentist Website</h1>
+        <p>
+          Welcome to my dentist website.
+        </p>
+      </div>
+    );
+  }
+}
+
+export default Home;
+```
+
+# Create Components for Procedures and Contact
+The purpose of our site is to create several components that we can swap out
+as the main content of the main page of our application in order to create a
+modern Single Page Application. We need to create two new components and then
+we can start routing things up.
+
+1. Create a new file called `Procedures.js`
+2. Create a new file called `Contact.js`
+
+Refer to the finished example repo to see the contents of these files. The files
+were created using the same procedure we used to create the `Home` component
+using the `App` component as a template. Basically: create each file, change the
+name of the component to it's new name, then replace the HTML in the
+`render() { ... }` function with custom content. Be sure to import each new
+component into `App.js` just like we did with the `Home` component.
+
+Refer to these complete files in the finished repo to make sure you got
+everything correct:
+
+<https://github.com/geluso/react-router-simple-dentist-site/blob/master/src/procedures.js>
+<https://github.com/geluso/react-router-simple-dentist-site/blob/master/src/contact.js>
+
+You can render each of these components all at once inside the `App` component
+by making sure each one is imported, and referencing them like `<Home></Home>`
+in the `App` render function.
+
+**App.js**
+```js
+import React, { Component } from 'react';
+import './App.css';
+
+import Home from './Home';
+import Procedures from './Procedures';
+import Contact from './Contact';
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Home></Home>
+        <Procedures></Procedures>
+        <Contact></Contact>
+      </div>
+    );
+  }
+}
+
+export default App;
 ```
 
 # Creating Routes
