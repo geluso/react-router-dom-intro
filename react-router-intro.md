@@ -278,6 +278,12 @@ other on the homepage. If you don't see content from all three of your
 components then something is wrong. You must fix this before continuing. Always:
 do simple things before doing complex things!
 
+Try manually deleting two of the three components so only one component is left
+on the page at a time. You should see your webpage update with just that
+component. This is effectively what **React Router** does. We can React Router
+so that it's aware of each component we want to show on the screen and React
+Router will swap the components out so that only one of them is shown at a time.
+
 Now that we've proven to ourselves that we're able to show each of the
 components on the main page it's time to hook them up to Router.
 
@@ -313,13 +319,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <nav>
-            <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/procedures">Procedures</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
-            </ul>
-          </nav>
           <Route exact path="/" component={Home} />
           <Route path="/procedures" component={Procedures} />
           <Route path="/contact" component={Contact} />
@@ -332,10 +331,60 @@ class App extends Component {
 export default App;
 ```  
 
-# Recap
-Here's a summary of what we've learned today:
+# Adding a Nav Section
+Wouldn't it be nice to have links at the top of the page so we can click on
+things and go to pages instead of manually typing in the URL? React Router
+provides a component called `<Link>` that generates `<a>` tags that link
+to the different routed views in our application. We'll add one `<Link>`
+component that leads to each of our different content pages.
 
-### React Router
+Each `<Link>` component takes an attribute `to` that we can give a URL path.
+We can wrap `<Link>` tags around text that we want to display in the link.
+
+Here's what our links will look like. Notice that the `to` attribute uses the
+URL path. The text in between the `<Link>` tags is just text that will display
+in the link. There's no reference to components here. Instead, we reference the
+URLs and allow **React Router** to use the URL to route users to the proper
+components.
+
+```js
+<Link to="/">Go to Home Page</Link>
+<Link to="/procedures">See Our Procedures</Link>
+<Link to="/contact">Contact Us!</Link>
+```
+
+We can include those links in a nifty `<nav>` element at the top of our page.
+It will stay on the page permanently and the different components will be
+replaced in the `<Router>` are below it.
+
+Here's what our final `App.js` looks like:
+
+```js
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li><Link to="/">Go to Home Page</Link></li>
+              <li><Link to="/procedures">See Our Procedures</Link></li>
+              <li><Link to="/contact">Contact Us!</Link></li>
+            </ul>
+          </nav>
+          <Route exact path="/" component={Home} />
+          <Route path="/procedures" component={Procedures} />
+          <Route path="/contact" component={Contact} />
+        </div>
+      </Router>
+    );
+  }
+}
+
+export default App;
+```
+
+### React Router Recap
 * Single Page Applications have specific URLs that are routed to display
   different content.
 * React Router makes it easy for us to route URLs to components.
