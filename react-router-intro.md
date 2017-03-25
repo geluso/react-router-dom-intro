@@ -273,6 +273,14 @@ class App extends Component {
 export default App;
 ```
 
+You should see all of content for each of the pages all stacked on top of each
+other on the homepage. If you don't see content from all three of your
+components then something is wrong. You must fix this before continuing. Always:
+do simple things before doing complex things!
+
+Now that we've proven to ourselves that we're able to show each of the
+components on the main page it's time to hook them up to Router.
+
 # Creating Routes
 React Router uses three of it's own components to define how URLs are routed
 to components, and to create links to those routes. Let's look at each of the
