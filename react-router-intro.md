@@ -292,16 +292,16 @@ React Router uses three of it's own components to define how URLs are routed
 to components, and to create links to those routes. Let's look at each of the
 three in summary:
 
-* **<Router>** - this component is a container component that all the other
+* **\<Router>** - this component is a container component that all the other
   React Router components must be wrapped inside of.
-* **<Route>** - this component creates a definition routing one URL to a
+* **\<Route>** - this component creates a definition routing one URL to a
   component. This component has two attributes:
   * **path** - defines the URL path that leads to the component. If someone
     types in the URL defined here then the site will display the component as
     the content of the page.
   * **component** - a reference to the component to show as content when
     someone navigates to the URL.
-* **<Link>** - This component creates `<a>` tags and automatically integrates
+* **\<Link>** - This component creates `<a>` tags and automatically integrates
   modern HTML5 browser history mechanics for the Single Page Application. It
   has one attribute:
   * **to** - this attribute defines what path to navigate to.
