@@ -23,7 +23,7 @@ Open a new tab in your browser and navigate to the Wikipedia article for
 (Cafe Allegro)[https://en.wikipedia.org/wiki/Cafe_Allegro] in Seattle.
 
 * Hover over the "1. History" link in the Contents section
-  ![History Link](hover-over-history-link.png)
+  ![History Link](screenshots/hover-over-history-link.png)
 * Look in the lower left of your browser to see the URL the link leads to
 * Notice the URL looks like `wikipedia.org/wiki/Cafe_Allegro#history`,
   specifically note the hashtag `#history`
@@ -43,7 +43,7 @@ Open a new tab in your browser and navigate to the Wikipedia article for
 Holding down the back button to look at your browser history should show
 something like this:
 
-![Cafe Allegro to General Assembly](allegro_to_GA.png)
+![Cafe Allegro to General Assembly](screenshots/allegro_to_GA.png)
 
 Browser history mechanics are built for going **back** and **forward** between
 different pages. Browsers have the back and forward buttons for users. These

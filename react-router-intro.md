@@ -178,7 +178,7 @@ this so the content of the homepage is moved into it's own component called
 8. Look at the browser and see if the homepage appears. It wont. You'll see an
   error. The error should look like below.
 
-![Home not defined](home-not-defined-error.png)
+![Home not defined](screenshots/home-not-defined-error.png)
 
 It's not enough to simply create the `Home.js` file and create the `Home`
 component. We must also import the component into the `App.js` file.
@@ -314,7 +314,7 @@ console.
 **Pro tip:** It's a good habit to check the console for errors whenever your
 app is not behaving as expected.
 
-![A Router may only have one child element.](router-requires-only-one-child.png)
+![A Router may only have one child element.](screenshots/router-requires-only-one-child.png)
 
 Notice that the first route for the homepage at the root URL path `/` uses a
 special extra `exact` attribute before defining the path. The `exact` attribute
@@ -476,7 +476,7 @@ If we don't write `{' '}` between the links then the links will appear like
 the screenshot on the left (all squished together) instead of having nice
 spaces between them like the nav on the right.
 
-![Spaces must be inserted manually.](manual-spaces-in-nav.png)
+![Spaces must be inserted manually.](screenshots/manual-spaces-in-nav.png)
 
 # Final Code
 Here's what our final `App.js` looks like:
