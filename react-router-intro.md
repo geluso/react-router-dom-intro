@@ -10,7 +10,7 @@
 # Intro to React Router
 **React Router** is a third-party library that makes it easy for us to route
 specific URLs to specific content on our page. In our React app different
-content will be grouped up in it's own regular **React** component. Once we
+content will be grouped up in its own regular **React** component. Once we
 define how the URLs are routed to the components **React Router** will
 manage our Single Page App's browser history automatically.
 
@@ -45,7 +45,7 @@ website at any domain, like `www.ourdentistwebsite.com` or
 only care about what comes after the domain name.
 
 Our routes say that if someone goes to `ourdomain.com/` they will see our
-homepage with welcome text. The content of this page will all be defined in it's
+homepage with welcome text. The content of this page will all be defined in its
 own component in a file called `home.js`. If someone navigates to the URL
 `ourdomain.com/contact` then they'll see content with the business address,
 a phone number and an email. All of this content will be defined in a component
@@ -235,7 +235,7 @@ we can start routing things up.
 Refer to the finished example repo to see the contents of these files. The files
 were created using the same procedure we used to create the `Home` component
 using the `App` component as a template. Basically: create each file, change the
-name of the component to it's new name, then replace the HTML in the
+name of the component to its new name, then replace the HTML in the
 `render() { ... }` function with custom content. Be sure to import each new
 component into `App.js` just like we did with the `Home` component.
 
@@ -281,7 +281,7 @@ do simple things before doing complex things!
 Try manually deleting two of the three components so only one component is left
 on the page at a time. You should see your webpage update with just that
 component. This is effectively what **React Router** does. We can React Router
-so that it's aware of each component we want to show on the screen and React
+so that its aware of each component we want to show on the screen and React
 Router will swap the components out so that only one of them is shown at a time.
 
 Now that we've proven to ourselves that we're able to show each of the
