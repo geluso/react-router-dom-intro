@@ -54,6 +54,7 @@ called `Contact` in a file called `contact.js`.
 You can see all of the final code and a live working copy of the site here:
 
 Full Repo: <https://github.com/geluso/react-router-simple-dentist-site>
+
 Live Site: <https://react-router-dentist.herokuapp.com/>
 
 # Installing React Router
@@ -356,7 +357,7 @@ import {
 } from 'react-router-dom';
 ```
 
-## Full Code
+## Fully Routed
 Here's how the imports and all the components look like together for our dentist
 website:
 
