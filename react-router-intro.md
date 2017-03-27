@@ -105,11 +105,12 @@ automatically refresh. If it doesn't automatically refresh then try to manaully
 refresh the page. If you still don't see changes after a manual refresh then
 something could be wrong. Make sure you're editing the right file.
 
-It's a good idea to make simple, verifiable changes like this when you're first
-starting to make changes to a project. It's like a sanity check. Make sure you
-can do simple things first. Don't start with complex things. Many things can go
-wrong when you make complex changes. Prove to yourself you can make small
-changes and you'll save yourself headaches debugging large complex changes.
+**Pro tip:** It's a good idea to make simple, verifiable changes like this when
+you're first starting to make changes to a project. It's like a sanity check.
+Make sure you can do simple things first. Don't start with complex things.
+Many things can go wrong when you make complex changes. Prove to yourself you
+can make small changes and you'll save yourself headaches debugging large
+complex changes.
 
 # Create Custom Homepage
 Let's get rid of the standard "Welcome to React" page and replace it with our
@@ -273,6 +274,7 @@ class App extends Component {
 export default App;
 ```
 
+## Displaying Pages Individually
 You should see all of content for each of the pages all stacked on top of each
 other on the homepage. If you don't see content from all three of your
 components then something is wrong. You must fix this before continuing. Always:
@@ -288,6 +290,39 @@ Now that we've proven to ourselves that we're able to show each of the
 components on the main page it's time to hook them up to Router.
 
 # Creating Routes
+Here's the general syntax for creating routes. You must have one `<Router>`
+component that wraps itself around multiple `<Route>` components. Each `<Route>`
+component has a `path` attribute and a `component` attribute that defines
+what component users will see when the navigate to the URL at the page.
+
+```
+<Router>
+  <div>
+    <Route exact path="/" component={HomePage} />
+    <Route path="/courses" component={CoursesPage} />
+    <Route path="/locations" component={LocationsPage} />
+  </div>
+</Router>
+```
+
+Notice that all of the `<Route>` components are wrapped inside one `<div>`. The
+`<Router>` requires that it only has one direct child element. If you don't
+wrap the routes with a `<div>` the page will appear blank and you'll have to
+open your JavaScript console to see that there's an error being logged to the
+console.
+
+**Pro tip:** It's a good habit to check the console for errors whenever your
+app is not behaving as expected.
+
+![A Router may only have one child element.](router-requires-only-one-child.png)
+
+Notice that the first route for the homepage at the root URL path `/` uses a
+special extra `exact` attribute before defining the path. The `exact` attribute
+means the component associated with the route will only be shown if users are
+at that URL path exactly. If you forget to include the `exact` keyword then
+when someone navigates to `/courses` they will actually see two components
+because `/` is a partial match for `/courses`.
+
 React Router uses three of it's own components to define how URLs are routed
 to components, and to create links to those routes. Let's look at each of the
 three in summary:
@@ -306,14 +341,41 @@ three in summary:
   has one attribute:
   * **to** - this attribute defines what path to navigate to.
     
-Here's what the components all look like together. The `<Router>` component is
-wrapped around everything. There's a `<nav>` section that contains several
-`<Link>` components that link to the different pages. After the `<nav>` section
-the `<Route>` components define how the URL paths are actually associated with
-each component.
+## Import Statements
+In order to use the React Router components you'll need to import them. This
+import syntax allows us to grab several specific components out of the
+`react-router-dom` library at once. One component is called `BrowserRouter`
+inside the library package but we use the `as` keyword to rename it to
+`Router` so it's available in shorthand.
+
+```
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
+```
+
+## Full Code
+Here's how the imports and all the components look like together for our dentist
+website:
 
 **app.js**
 ```
+import React, { Component } from 'react';
+import './App.css';
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
+
+import Home from './Home';
+import Procedures from './Procedures';
+import Contact from './Contact';
+
+
 class App extends Component {
   render() {
     return (
@@ -331,7 +393,43 @@ class App extends Component {
 export default App;
 ```  
 
+# Navigate to the Routes
+Now that everything is hooked up you can manually enter different URLs and
+see how your page appears. If you go to <http://localhost:3000/> You should
+see the homepage. If you go to <http://localhost:3000/procedures> you should
+see just the procedures page. If you go to <http://localhost:3000/contact>
+then you should see just the contact page.
+
+Make sure that React Router is routing from each URL to the proper component
+correctly. Double check to make sure that the home page doesn't display at the
+same time as another component. If the homepage is shown while you're at the
+path to `/procedures` or `/contact` then you probably did not write the `exact`
+keyword when you defined the `/` Home route.
+
+## Debugging Common Errors
+Let's intentionally make an error. Delete the `exact` keyword off the Home
+route. Navigate to the `/procedures` page and the `/contact` page again and
+see how the components are displayed. You should see the content of the
+homepage and the content for one of the other pages at the same time, with
+the home page on top.
+
+Now add the `exact` keyword back to the home route and notice that the pages
+don't double up any more.
+
+Two common errors:
+1. If the page appears blank open the JavaScript console to see if there are
+  errors. Chances are you have a typo somewhere or forgot to make sure the
+  `<Router>` only has one child element. Wrap all of your `<Route>` components
+  in one `<div>`.
+2. If multiple components appear on the page at the same time there's
+  something with how you've routed URLs. Make sure you use the `exact`
+  keyword on the root path `/` and make sure there's no duplicate URL paths
+  defined anywhere.
+
 # Adding a Nav Section
+Great, now our site is up and running! We can manually type in URLs and see the
+different pages.
+
 Wouldn't it be nice to have links at the top of the page so we can click on
 things and go to pages instead of manually typing in the URL? React Router
 provides a component called `<Link>` that generates `<a>` tags that link
@@ -353,10 +451,34 @@ components.
 <Link to="/contact">Contact Us!</Link>
 ```
 
-We can include those links in a nifty `<nav>` element at the top of our page.
+We can include those links in a `<nav>` element at the top of our page.
 It will stay on the page permanently and the different components will be
-replaced in the `<Router>` are below it.
+swapped between each other below it. There's actually nothing special about
+the `<nav>` element. It behaves exactly like a `<div>`. `<nav>` Is just a
+semantic element that gives your HTML more meaning when people read it.
 
+There's one slightly annoying thing about React here. React strips out
+whitespace between elements. If we write `<Link>` components next to each
+other, even if they're on new lines, React strips all of the whitespace
+(spaces, returns, tabs...) between them and squishes them all together. We
+must insert a space manually by writing `{' '}` in order to get spaces between
+our links.
+
+Here's how we'll write the links:
+
+```
+<Link to="/">Go to Home Page</Link>{' '}
+<Link to="/procedures">See Our Procedures</Link>{' '}
+<Link to="/contact">Contact Us!</Link>
+```
+
+If we don't write `{' '}` between the links then the links will appear like
+the screenshot on the left (all squished together) instead of having nice
+spaces between them like the nav on the right.
+
+![Spaces must be inserted manually.](manual-spaces-in-nav.png)
+
+# Final Code
 Here's what our final `App.js` looks like:
 
 ```js
@@ -366,11 +488,9 @@ class App extends Component {
       <Router>
         <div>
           <nav>
-            <ul>
-              <li><Link to="/">Go to Home Page</Link></li>
-              <li><Link to="/procedures">See Our Procedures</Link></li>
-              <li><Link to="/contact">Contact Us!</Link></li>
-            </ul>
+            <Link to="/">Go to Home Page</Link>{' '}
+            <Link to="/procedures">See Our Procedures</Link>{' '}
+            <Link to="/contact">Contact Us!</Link>
           </nav>
           <Route exact path="/" component={Home} />
           <Route path="/procedures" component={Procedures} />
@@ -387,9 +507,10 @@ export default App;
 ### React Router Recap
 * Single Page Applications have specific URLs that are routed to display
   different content.
+* React Router is a third-party library that we can install and use with React.
+* Since React Router isn't built in to React we must import it's components.
 * React Router makes it easy for us to route URLs to components.
 * React Router automatically manipulates modern browser history mechanics.
-* React Router is a third-party library that we can install and use with React.
 
 ## Licensing
 All content is licensed under a CC­BY­NC­SA 4.0 license.
