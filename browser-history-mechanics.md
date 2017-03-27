@@ -22,7 +22,8 @@ between pages you've been been to and you can **reload** the page you're on.
 Open a new tab in your browser and navigate to the Wikipedia article for
 (Cafe Allegro)[https://en.wikipedia.org/wiki/Cafe_Allegro] in Seattle.
 
-* Hover over the "History" link in the Contents section
+* Hover over the "1. History" link in the Contents section
+  ![History Link](hover-over-history-link.png)
 * Look in the lower left of your browser to see the URL the link leads to
 * Notice the URL looks like `wikipedia.org/wiki/Cafe_Allegro#history`,
   specifically note the hashtag `#history`
@@ -107,9 +108,7 @@ under that, like `/locations/london` and `/locations/singapore`.
 | /locations/singapore                            | Shows London-specific location information   |
 
 You can see that URLs *route* users to content. When someone types in a URL
-they are ultimately shown content associated with that URL. It's also important
-that someone should be able to copy a URL, send it to someone else, and everyone
-should end up seeing the same thing.
+they are ultimately shown content associated with that URL.
 
 Have you ever tried to send someone a link to what you're looking at on Google
 Maps and then when they click on your link they end up looking at something
@@ -144,9 +143,9 @@ Open your browser and navigate to Gmail:
 This all happens on one page! The page never refreshes. The chat bar with your
 friend never disappears as you compose an email and search through your inbox.
 
-Gmail fits the definition of a **Single Page Applications**. Gmail loads one
+Gmail fits the definition of a **Single Page Application**. Gmail loads one
 page just once and that page replaces content dynamically to show you many
-different things. That single page changes it's content dynamically without
+different things. That single page changes its content dynamically without
 reloading or sending you to another page. It's great!
 
 Consider the benefits of a single page application:
@@ -177,7 +176,7 @@ different email inboxes, search results and then pressing the back button.
 * Search your email for plane tickets
 * Click on on email to see ticket information
 * Click **back** to go back to plane ticket search results
-* The user ends up back at facebook.com
+* You would end up back at facebook.com
 
 Since Gmail is a Single Page Application pressing the back button will take
 the user all the way back to Facebook! Really, the user just wanted to go back
